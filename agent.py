@@ -1,5 +1,6 @@
 import asyncio
 from tool import execute_tool
+import json
 
 tools = [{
     "type": "function",
@@ -33,7 +34,6 @@ async def run_agent(client, task):
             return msg.content
 
         messages.append(msg)
-        import json
         for tool_call in msg.tool_calls:
             result = execute_tool(tool_call.function.name, json.loads(tool_call.function.arguments))
             messages.append({
